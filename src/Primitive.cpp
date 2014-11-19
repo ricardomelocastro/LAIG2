@@ -406,36 +406,27 @@ void Patch::draw(Texture * texture, Appearance * appearance){
 }
 
 Vehicle::Vehicle(){
-}
-
-Vehicle::Vehicle(float * control){
-	this->control = control;
-}
-void Vehicle::draw(Texture * texture, Appearance * appearance){
 	float * control = new float[48];
-	//control[0]= 0.0;
-	//control[1]= 0.0;
-	//control[2]= 0.0;
-	control[0]= 0.5;
+	control[0]= 0.6;
 	control[1]= 0.0;
-	control[2]= 0.3;
+	control[2]= 0.2;
 	control[3]= 0.5;
-	control[4]= 0.2;
+	control[4]= 0.0;
 	control[5]= 0.1;
 	control[6]= 0.5;
-	control[7]= 0.2;
+	control[7]= 0.0;
 	control[8]= -0.1;
-	control[9]= 0.5;
-	control[10]= 0.2;
-	control[11]= -0.3;
+	control[9]= 0.6;
+	control[10]= 0.0;
+	control[11]= -0.2;
 	control[12]= 0.7;
 	control[13]= 0.0;
 	control[14]= 0.3;
 	control[15]= 0.7;
-	control[16]= 0.1; 
+	control[16]= 0.3; 
 	control[17]= 0.1;
 	control[18]= 0.7;
-	control[19]= 0.1; 
+	control[19]= 0.3; 
 	control[20]= -0.1;
 	control[21]= 0.7;
 	control[22]= 0.0;
@@ -445,10 +436,10 @@ void Vehicle::draw(Texture * texture, Appearance * appearance){
 	control[26]= 0.3;
 	control[27]= 1.0;
 	control[28]= 0.3;
-	control[29]= 0.1;
+	control[29]= 0.3;
 	control[30]= 1.0;
 	control[31]= 0.3;
-	control[32]= -0.1;
+	control[32]= -0.3;
 	control[33]= 1.0;
 	control[34]= 0.0;
 	control[35]= -0.3;
@@ -456,18 +447,102 @@ void Vehicle::draw(Texture * texture, Appearance * appearance){
 	control[37]= 0.0;
 	control[38]= 0.3;
 	control[39]= 1.2;
-	control[40]= 0.0;
+	control[40]= 0.5;
 	control[41]= 0.1;
 	control[42]= 1.2;
-	control[43]= 0.0;
+	control[43]= 0.5;
 	control[44]= -0.1;
 	control[45]= 1.2;
 	control[46]= 0.0;
 	control[47]= -0.3;
 
+	this->control = control;
+}
+
+Vehicle::Vehicle(float * control){
+	this->control = control;
+}
+
+void Vehicle::draw(Texture * texture, Appearance * appearance){
+	glPushMatrix();
 	glTranslatef(0.0,2.0,0.0);
+	upper(texture, appearance);
+	bottom(texture, appearance);
+	mid(texture, appearance);
+	glPopMatrix();
+	glPushMatrix();
+	glTranslatef(2.0,-1.3,0.0);
+	glRotatef(90,0.0,0.0,1.0);
+	//glScalef(2.0,0.0,0.0);
+	mid(texture, appearance);
+	glPopMatrix();
+	glPopMatrix();
+}
+
+void Vehicle::upper(Texture * texture, Appearance * appearance){
+	glPushMatrix();
 	Patch * upper = new Patch(3,10,10,control,"fill");
-
 	upper->draw(texture, appearance);
+	glPopMatrix();
+}
 
+void Vehicle::bottom(Texture * texture, Appearance * appearance){
+	glPushMatrix();
+	Patch * bottom = new Patch(3,10,10,control,"fill");
+	glRotatef(180,1,0.0,0.0);
+	bottom->draw(texture, appearance);
+	glPopMatrix();
+}
+
+void Vehicle::mid(Texture * texture, Appearance * appearance){
+	glPushMatrix();
+	Rectangle * midfront = new Rectangle(0.0,0.0,0.6,0.8);
+	Rectangle * midback = new Rectangle(0.0,0.0,0.6,0.8);
+	Rectangle * midleft = new Rectangle(0.0,0.0,0.4,0.8);
+	Rectangle * midright = new Rectangle(0.0,0.0,0.4,0.8);
+	Rectangle * midtop = new Rectangle(0.0,0.0,0.6,0.4);
+	Rectangle * midbottom = new Rectangle(0.0,0.0,0.6,0.4);
+
+	glPushMatrix();
+	glTranslatef(1.2,-0.4,-0.3);
+	glRotatef(-90,0.0,1.0,0.0);
+	midfront->Draw(texture,appearance);
+	glPopMatrix();
+	glPushMatrix();
+	glTranslatef(1.6,-0.4,0.3);
+	glRotatef(90,0.0,1.0,0.0);
+	midback->Draw(texture, appearance);
+	glPopMatrix();
+	glPushMatrix();
+	glTranslatef(1.6,-0.4,-0.3);
+	glRotatef(180,0.0,1.0,0.0);
+	midleft->Draw(texture, appearance);
+	glPopMatrix();
+	glPushMatrix();
+	glTranslatef(1.2,-0.4,0.3);
+	midleft->Draw(texture, appearance);
+	glPopMatrix();
+	glPushMatrix();
+	glTranslatef(1.6,0.4,0.3);
+	glRotatef(90,0.0,1.0,0.0);
+	glRotatef(-90,1.0,0.0,0.0);
+	midtop->Draw(texture, appearance);
+	glPopMatrix();
+	glPushMatrix();
+	glTranslatef(1.2,-0.4,0.3);
+	glRotatef(90,0.0,1.0,0.0);
+	glRotatef(90,1.0,0.0,0.0);
+	midbottom->Draw(texture, appearance);
+	glPopMatrix();
+}
+
+void Vehicle::back(Texture * texture, Appearance * appearance){
+	glPushMatrix();
+	Rectangle * backfront = new Rectangle(0.0,0.0,0.6,0.3);
+	Rectangle * backback = new Rectangle(0.0,0.0,0.6,0.3);
+	Rectangle * backleft = new Rectangle(0.0,0.0,1.5,0.3);
+	Rectangle * backright = new Rectangle(0.0,0.0,1.5,0.3);
+
+	backfront->Draw(texture, appearance);
+	glPopMatrix();
 }

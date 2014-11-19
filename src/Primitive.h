@@ -119,6 +119,11 @@ public:
 	Vehicle();
 	Vehicle(float * control);
 	void draw(Texture * texture, Appearance * appearance);
+	
+	void upper(Texture * texture, Appearance * appearance);
+	void bottom(Texture * texture, Appearance * appearance);
+	void mid(Texture * texture, Appearance * appearance);
+	void back(Texture * texture, Appearance * appearance);
 };
 
 #endif
