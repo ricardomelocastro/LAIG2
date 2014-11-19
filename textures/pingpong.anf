@@ -1,0 +1,529 @@
+<anf>
+  <globals>
+   <drawing mode="fill" shading="gouraud" background="0.7 0.7 0.7 1.0" />
+   <culling face="back" order="ccw" />
+   <lighting doublesided="false" local="true" enabled="true" ambient="0.7 0.7 0.7 1.0" />
+  </globals>
+
+ <cameras initial="perspective_cam" >
+
+  <ortho id="x_axis" direction="x" near="-10.0" far="10.0" left="-10.0" right="10.0" top="20.0" bottom="0.0" />
+  <ortho id="y_axis" direction="y" near="-10.0" far="10.0" left="-10.0" right="10.0" top="-10.0" bottom="2.0" />
+  <ortho id="z_axis" direction="z" near="-10.0" far="10.0" left="-10.0" right="10.0" top="20.0" bottom="0.0" />
+  <perspective id="perspective_cam" near="1.0" far="100.0" angle="45" pos="10.0 5.0 10.0" target="0.0 0.0 0.0" />
+ 
+ </cameras>
+
+<lights>
+
+  <light id="omni" type="omni" enabled="true" marker="true" pos="0.0 15.0 0.0" >
+    <component type="ambient" value="0.3 0.3 0.3 1.0" />
+    <component type="diffuse" value="0.6 0.6 0.6 1.0" />
+    <component type="specular" value="0.1 0.1 0.1 1.0" />
+  </light>
+
+  <light id="spot_1" type="spot" enabled="true" marker="true" pos="5.0 10.0 5.0" target="5.0 0.0 5.0" angle="70" exponent="4" >
+    <component type="ambient" value="0.1 0.1 0.1 1.0" />
+    <component type="diffuse" value="0.7 0.7 0.7 1.0" />
+    <component type="specular" value="0.2 0.3 0.2 1.0" />
+  </light>
+
+  <light id="spot_2" type="spot" enabled="true" marker="true" pos="5.0 5.0 10.0" target="5.0 0.0 5.0" angle="70" exponent="4" >
+    <component type="ambient" value="0.1 0.1 0.1 1.0" />
+    <component type="diffuse" value="0.7 0.7 0.7 1.0" />
+    <component type="specular" value="0.2 0.3 0.2 1.0" />
+  </light>
+
+  <light id="spot_Flag" type="spot" enabled="true" marker="true" pos="7.0 7.0 7.0" target="0.0 6.0 11.0" angle="70" exponent="4" >
+    <component type="ambient" value="0.7 0.7 0.7 1.0" />
+    <component type="diffuse" value="0.7 0.7 0.7 1.0" />
+    <component type="specular" value="0.7 0.7 0.7 1.0" />
+  </light>
+
+</lights>
+
+
+ <textures> 
+  <texture id="bolaText" file="textures/bolaText.png" texlength_s="1" texlength_t="1" />
+  <texture id="mesaText" file="textures/mesaText.png" texlength_s="1" texlength_t="1" />
+  <texture id="redeText" file="textures/redeText.png" texlength_s="1" texlength_t="1" />
+  <texture id="punhoText" file="textures/punhoText.png" texlength_s="1" texlength_t="1" />
+  <texture id="chaoText" file="textures/chaoText.jpg" texlength_s="1" texlength_t="1" />
+  <texture id="bateBolaText" file="textures/bateBolaText.png" texlength_s="1" texlength_t="1" />
+  <texture id="circulo_1Tex" file="textures/circulo_1Tex.png" texlength_s="1" texlength_t="1" />
+  <texture id="circulo_2Tex" file="textures/circulo_2Tex.jpg" texlength_s="1" texlength_t="1" />
+  <texture id="circulo_3Tex" file="textures/circulo_3Tex.jpg" texlength_s="1" texlength_t="1" />
+  <texture id="circulo_4Tex" file="textures/circulo_4Tex.png" texlength_s="1" texlength_t="1" />
+  <texture id="circulo_5Tex" file="textures/circulo_5Tex.jpg" texlength_s="1" texlength_t="1" />
+  <texture id="tecidoTex" file="textures/tecidoTex.jpg" texlength_s="1" texlength_t="1" />
+
+ </textures>
+
+ <appearances>
+
+ <appearance id="pingpongApp" shininess="0" >
+    <component type="ambient" value="0.4 0.4 0.4 1.0" />
+    <component type="diffuse" value="0.4 0.4 0.4 1.0" />
+    <component type="specular" value="0.2 0.2 0.2 1.0" />
+  </appearance>
+
+  <appearance id="mesaApp" shininess="0" textureref="mesaText" >
+    <component type="ambient" value="0.4 0.4 0.4 1.0" />
+    <component type="diffuse" value="0.4 0.4 0.4 1.0" />
+    <component type="specular" value="0.2 0.2 0.2 1.0" />
+  </appearance>
+
+  <appearance id="redeApp" shininess="0" textureref="redeText" >
+    <component type="ambient" value="0.6 0.6 0.6 1.0" />
+    <component type="diffuse" value="0.3 0.3 0.3 1.0" />
+    <component type="specular" value="0.1 0.1 0.1 1.0" />
+  </appearance>
+
+  <appearance id="bolaApp" shininess="0" textureref="bolaText" >
+      <component type="ambient" value="0.2 0.1 0.07 1.0" />
+      <component type="diffuse" value="0.7 0.6 0.2 1.0" />
+      <component type="specular" value="0.6 0.5 0.3 1.0" />
+  </appearance>
+
+  <appearance id="punhoApp" shininess="0" textureref="punhoText" >
+     <component type="ambient" value="0.5 0.5 0.5 1.0" />
+     <component type="diffuse" value="0.5 0.5 0.5 1.0" />
+     <component type="specular" value="0.7 0.6 0.6 1.0" />
+  </appearance>
+
+  <appearance id="bateBolaApp" shininess="0" textureref="bateBolaText" >
+    <component type="ambient" value="0.5 0.5 0.5 1.0" />
+    <component type="diffuse" value="0.5 0.5 0.5 1.0" />
+    <component type="specular" value="0.7 0.6 0.6 1.0" />
+  </appearance>
+
+  <appearance id="chaoApp" shininess="0" textureref="chaoText" >
+    <component type="ambient" value="0.2 0.2 0.2 1.0" />
+    <component type="diffuse" value="0.4 0.4 0.4 1.0" />
+    <component type="specular" value="0.7 0.7 0.7 1.0" />
+  </appearance>
+
+  <appearance id="circulo_1App" shininess="0.6" textureref="circulo_1Tex" >
+    <component type="ambient" value="0.2 0.1 0.07 1.0" />
+    <component type="diffuse" value="0.7 0.6 0.2 1.0" />
+    <component type="specular" value="0.6 0.5 0.3 1.0" />
+  </appearance>
+
+  <appearance id="circulo_2App" shininess="0.6" textureref="circulo_2Tex" >
+    <component type="ambient" value="0.2 0.1 0.07 1.0" />
+    <component type="diffuse" value="0.7 0.6 0.2 1.0" />
+    <component type="specular" value="0.6 0.5 0.3 1.0" />
+  </appearance>
+
+   <appearance id="circulo_3App" shininess="0.6" textureref="circulo_3Tex" >
+    <component type="ambient" value="0.2 0.1 0.07 1.0" />
+    <component type="diffuse" value="0.7 0.6 0.2 1.0" />
+    <component type="specular" value="0.6 0.5 0.3 1.0" />
+  </appearance>
+
+   <appearance id="circulo_4App" shininess="0.6" textureref="circulo_4Tex" >
+    <component type="ambient" value="0.2 0.1 0.07 1.0" />
+    <component type="diffuse" value="0.7 0.6 0.2 1.0" />
+    <component type="specular" value="0.6 0.5 0.3 1.0" />
+  </appearance>
+
+  <appearance id="circulo_5App" shininess="0.6" textureref="circulo_5Tex" >
+    <component type="ambient" value="0.2 0.1 0.07 1.0" />
+    <component type="diffuse" value="0.7 0.6 0.2 1.0" />
+    <component type="specular" value="0.6 0.5 0.3 1.0" />
+  </appearance>
+
+  <appearance id="tecidoApp" shininess="0.6" textureref="tecidoTex" >
+    <component type="ambient" value="0.2 0.1 0.07 1.0" />
+    <component type="diffuse" value="0.7 0.6 0.2 1.0" />
+    <component type="specular" value="0.6 0.5 0.3 1.0" />
+  </appearance>
+  
+ </appearances>
+
+ <graph rootid="pingPong">
+  <node id="pingPong">   
+
+    <transforms>
+    </transforms>
+
+    <appearanceref id="pingpongApp" />
+
+    <descendants>
+      <noderef id="mesa" /> 
+      <noderef id="bola" />
+      <noderef id="raqueta1" />
+      <noderef id="raqueta2" />
+      <noderef id="simbolo_olimpico" />
+      <noderef id="bandeira" />
+      <noderef id="chao" /> 
+    </descendants>
+  </node>
+
+
+
+
+<!-- -------------------------------------------------CUBO ---------------------- -->
+  <node id="cubo">   
+    <transforms>
+    </transforms>
+
+    <appearanceref id="inherit" />
+  
+    <descendants>
+      <noderef id="frontal" />
+      <noderef id="traseira" />
+      <noderef id="esquerda" />
+      <noderef id="direita" />
+      <noderef id="cima" />
+      <noderef id="baixo" />
+    </descendants>
+  </node>
+
+  <node id="frontal">
+    <transforms>
+      <transform type="translate" to="1.0 0.0 -1.0" />
+      <transform type="rotate" axis="y" angle="180" />
+    </transforms>
+
+    <appearanceref id="inherit" />
+
+    <primitives>
+      <rectangle xy1="0.0 0.0" xy2="1.0 1.0" /> 
+    </primitives>
+  </node>
+
+  <node id="traseira">
+    <transforms>
+    </transforms>
+
+    <appearanceref id="inherit" />
+    
+    <primitives>
+       <rectangle xy1="0.0 0.0" xy2="1.0 1.0" /> 
+    </primitives>
+  </node>
+
+  <node id="esquerda">
+    <transforms>
+      <transform type="translate" to="0.0 0.0 -1.0" />
+      <transform type="rotate" axis="y" angle="270" />
+    </transforms>
+
+    <appearanceref id="inherit" />
+
+    <primitives>
+      <rectangle xy1="0.0 0.0" xy2="1.0 1.0" /> 
+    </primitives>
+  </node>
+
+
+  <node id="direita">
+    <transforms>
+      <transform type="translate" to="1.0 0.0 0.0" /> 
+      <transform type="rotate" axis="y" angle="90" />
+    </transforms>
+
+    <appearanceref id="inherit" />
+ 
+    <primitives>
+      <rectangle xy1="0.0 0.0" xy2="1.0 1.0" /> 
+    </primitives>
+  </node>
+
+
+  <node id="cima">
+    <transforms>
+      <transform type="translate" to="0.0 1.0 0.0" /> 
+    
+      <transform type="rotate" axis="x" angle="-90" />
+    </transforms>
+
+    <appearanceref id="inherit" />
+
+    <primitives>
+      <rectangle xy1="0.0 0.0" xy2="1.0 1.0" /> 
+    </primitives>
+  </node>
+
+  <node id="baixo">
+    <transforms>
+      <transform type="translate" to="0.0 0.0 -1.0" /> 
+      <transform type="rotate" axis="x" angle="90" />
+    </transforms>
+
+    <appearanceref id="inherit" />
+
+    <primitives>
+      <rectangle xy1="0.0 0.0" xy2="1.0 1.0" /> 
+    </primitives>
+  </node>
+
+<!-- -------------------------------------------------------------------------- -->
+
+  <node id="mesa">
+    <transforms>
+      <transform type="translate" to="5.0 0.0 5.0"/>
+    </transforms>
+
+    <appearanceref id="mesaApp" />
+  
+    <descendants>
+      <noderef id="ptInferior" />
+      <noderef id="ptSuperior" />
+      <noderef id="rede" />
+    </descendants>
+  </node>
+
+  <node id = "ptInferior">
+    <transforms>
+      <transform type="translate" to="0.0 0.0 0.5"/>
+      <transform type="scale" factor="4.0 2.0 1.0"/>
+
+    </transforms>
+
+    <appearanceref id="inherit" />
+    <descendants>
+      <noderef id="cubo" />
+    </descendants>
+  </node>
+
+  <node id="ptSuperior">
+    <transforms>
+      <transform type="translate" to="0.0 2.0 4.0"/>
+      <transform type="scale" factor="4.0 1.0 8.0"/>
+    </transforms>
+
+    <appearanceref id="inherit" />
+    <descendants>
+      <noderef id="cubo" />
+    </descendants>
+  </node>
+
+  <node id="rede">
+    <transforms>
+       <transform type="translate" to="0.0 3.0 0.0"/>
+      <transform type="scale" factor="4.0 0.6 0.05"/>
+    </transforms>
+
+    <appearanceref id="redeApp" />
+    <descendants>
+      <noderef id="cubo" />
+    </descendants>
+  </node>
+
+
+
+  <node id="bola">
+    <transforms>
+      <transform type="translate" to="5.0 5.0 2.5"/>
+    </transforms>
+
+    <appearanceref id="bolaApp" />
+
+    <primitives>
+      <sphere radius="0.3" slices="10" stacks="10" />
+    </primitives>
+  </node>
+
+
+  <node id="raqueta">
+    <transforms>
+    </transforms>
+
+    <appearanceref id="inherit" />
+
+    <descendants>
+      <noderef id="punho" />
+      <noderef id="bateBola" />
+    </descendants>
+  </node>
+
+  <node id="punho">
+    <transforms>
+    </transforms>
+
+    <appearanceref id="punhoApp" />
+
+    <primitives>
+      <cylinder base="0.3" top="0.3" height="0.7" slices="10" stacks="10" />
+    </primitives>
+  </node>
+
+  <node id="bateBola" >
+    <transforms>
+      <transform type="rotate" axis="x" angle="90" />
+      <transform type="translate" to="0.0 1.1 0.0" />
+
+     
+    </transforms>
+
+    <appearanceref id="bateBolaApp" />
+
+    <primitives>
+      <cylinder base="0.8" top="0.8" height="0.3" slices="10" stacks="3" />
+    </primitives>
+  </node>
+
+  <node id="raqueta1">
+    <transforms>
+      <transform type="translate" to="6.5 4.0 9.0" />
+      <transform type="rotate" axis="x" angle="-90" />
+      <transform type="rotate" axis="y" angle="45" />
+    </transforms>
+
+    <appearanceref id="inherit" />
+
+    <descendants>
+      <noderef id="raqueta"/>
+    </descendants>
+  </node>
+
+  <node id="raqueta2" >
+    <transforms>
+      <transform type="translate" to="6.0 4.0 0.5" />
+      <transform type="rotate" axis="x" angle="-90" />
+      <transform type="rotate" axis="y" angle="-30" />
+    </transforms>
+
+    <appearanceref id="inherit" />
+
+    <descendants>
+      <noderef id="raqueta"/>
+    </descendants>
+  </node>
+
+  <node id="simbolo_olimpico">   
+    <transforms>
+      <transform type="rotate" axis="y" angle="45" />
+    </transforms>
+
+    <appearanceref id="inherit" />
+  
+    <descendants>
+      <noderef id="circulo_1" />
+      <noderef id="circulo_2" />
+      <noderef id="circulo_3" />
+      <noderef id="circulo_4" />
+      <noderef id="circulo_5" />
+    </descendants>
+  </node>
+
+  <node id="circulo_1">   
+    <transforms>
+       <transform type="translate" to="0.0 7.0 0.0" />
+    </transforms>
+
+    <appearanceref id="circulo_1App" />
+ 
+    <primitives>
+      <torus inner="0.2" outer="0.5" slices="10" loops="10" />
+    </primitives>
+  </node>
+
+  <node id="circulo_2">   
+    <transforms>
+       <transform type="translate" to="-1.0 7.0 0.0" />
+    </transforms>
+
+    <appearanceref id="circulo_2App" />
+ 
+    <primitives>
+      <torus inner="0.2" outer="0.5" slices="10" loops="10" />
+    </primitives>
+  </node>
+
+  <node id="circulo_3">   
+    <transforms>
+       <transform type="translate" to="1.0 7.0 0.0" />
+    </transforms>
+
+    <appearanceref id="circulo_3App" />
+ 
+    <primitives>
+      <torus inner="0.2" outer="0.5" slices="10" loops="10" />
+    </primitives>
+  </node>
+
+  <node id="circulo_4">   
+    <transforms>
+       <transform type="translate" to="-0.5 6.1 0.0" />
+    </transforms>
+
+    <appearanceref id="circulo_4App" />
+ 
+    <primitives>
+      <torus inner="0.2" outer="0.5" slices="10" loops="10" />
+    </primitives>
+  </node>
+
+  <node id="circulo_5">   
+    <transforms>
+       <transform type="translate" to="0.5 6.1 0.0" />
+    </transforms>
+
+    <appearanceref id="circulo_5App" />
+ 
+    <primitives>
+      <torus inner="0.2" outer="0.5" slices="10" loops="10" />
+    </primitives>
+  </node>
+
+  <node id="bandeira">   
+    <transforms>
+    <transform type="translate" to="0.0 0.0 11.0" />
+    <transform type="rotate" axis="y" angle="90" />
+    </transforms>
+
+    <appearanceref id="inherit" />
+ 
+    <descendants>
+      <noderef id="mastro" />
+      <noderef id="tecido" />
+    </descendants>
+  </node>
+
+  <node id="mastro">   
+    <transforms>
+     <transform type="rotate" axis="x" angle="-90" />
+    </transforms>
+
+    <appearanceref id="punhoApp" />
+ 
+    <primitives>
+        <cylinder base="0.2" top="0.2" height="6" slices="16" stacks="16" />
+    </primitives>
+  </node>
+
+  <node id="tecido">   
+    <transforms>
+      <transform type="translate" to="0.0 6.0 0.0" />
+   
+    </transforms>
+
+    <appearanceref id="tecidoApp" />
+ 
+    <primitives>
+        <triangle xyz1="-2.0 0.0 0.0" xyz2="2.0 0.0 0.0" xyz3="0.0 2.0 0.0" />
+    </primitives>
+  </node>
+
+
+
+  <node id="chao" >
+    <transforms>
+     
+     <transform type="translate" to="-10.0 0.0 25.0" />
+	   <transform type="rotate" axis="x" angle="-90" />
+     </transforms>
+
+    <appearanceref id="chaoApp" />
+
+    <primitives>
+      <rectangle xy1="0.0 0.0" xy2="40 40" />
+    </primitives>
+  </node>
+
+  
+ </graph>
+</anf>
