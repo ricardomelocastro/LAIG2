@@ -4,6 +4,8 @@
 #include <string>
 #include <vector>
 #include <iostream>
+#include <math.h>
+#include <CGFobject.h>
 
 using namespace std;
 
@@ -13,7 +15,6 @@ class Animation{
 
 private:
 	string id;
-	float span;
 	string type;
 	
 
@@ -22,7 +23,7 @@ public:
 	virtual void apply();
 	virtual void update(unsigned long t);
 	virtual void reset();
-
+	float span;
 };
 
 
@@ -33,13 +34,18 @@ private:
 	vector<float>controlX;
 	vector<float>controlY;
 	vector<float>controlZ;
-	
-
+	float distance;
+	int actualPos;
+	float newX;
+	float newY;
+	float newZ;
+	unsigned long stime;
 public:
 	LinearAnimation(string id, float span,vector<float>controlX,vector<float>controlY,vector<float>controlZ);
 	void apply();
 	void update(unsigned long t);
 	void reset();
+	void init(unsigned long t);
 	
 
 };
@@ -60,7 +66,6 @@ public:
 	void apply();
 	void update(unsigned long t);
 	void reset();
-	
 
 };
 

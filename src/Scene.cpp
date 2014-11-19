@@ -1,9 +1,6 @@
 #include "Scene.h"
 #include "Parser.h"
 
-
-
-
 Scene::Scene(): CGFscene(){
 } 
 
@@ -21,53 +18,8 @@ void Scene::init()
 	attributes->processglobals();
 	
 	//attributes->createDisplay(attributes->getRoot(), NULL);
-
-	plane = new Plane(2);
 	/*
-	vector<vector<float>> points;
-	vector<float> st;
-	//{0.0,0.0,0.0},{0.0,2.0,-1.0},{0.0,2.0,-2.0},{0.0,0.0,-3.0},
-		//{4.0,0.0,0.0},{4.0,2.0,-1.0},{4.0,2.0,-2.0},{4.0,0.0,-3.0}
-	st.push_back(0.0);
-	st.push_back(0.0);
-	st.push_back(0.0);
-	points.push_back(st);
-	vector<float> sec;
-	sec.push_back(0.0);
-	sec.push_back(2.0);
-	sec.push_back(-1.0);
-	points.push_back(sec);
-	vector<float> trd;
-	trd.push_back(0.0);
-	trd.push_back(2.0);
-	trd.push_back(-2.0);
-	points.push_back(trd);
-	vector<float> fth;
-	fth.push_back(0.0);
-	fth.push_back(0.0);
-	fth.push_back(-3.0);
-	points.push_back(fth);
-	vector<float> f5h;
-	fth.push_back(4.0);
-	fth.push_back(0.0);
-	fth.push_back(0.0);
-	points.push_back(f5h);
-	vector<float> f6h;
-	fth.push_back(4.0);
-	fth.push_back(2.0);
-	fth.push_back(-1.0);
-	points.push_back(f6h);
-	vector<float> f7h;
-	fth.push_back(4.0);
-	fth.push_back(2.0);
-	fth.push_back(-2.0);
-	points.push_back(f7h);
-	vector<float> f8h;
-	fth.push_back(4.0);
-	fth.push_back(0.0);
-	fth.push_back(-3.0);
-	points.push_back(f8h);
-	*/
+	plane = new Plane(2);
 	float * points = new float[27];
 	points[0] = 0.0;
 	points[1] = 0.0;
@@ -99,8 +51,25 @@ void Scene::init()
 	/*{
 		{0.0,0.0,0.0},{0.0,2.0,-1.0},{0.0,2.0,-2.0},{0.0,0.0,-3.0},
 		{4.0,0.0,0.0},{4.0,2.0,-1.0},{4.0,2.0,-2.0},{4.0,0.0,-3.0}};*/
-
+	/*
 	patch = new Patch(2, 5, 5, points, "fill");
+	*/
+	vehicle = new Vehicle();
+	vector<float> X;
+	X.push_back(0.0);
+	X.push_back(0.0);
+	X.push_back(5.0);
+
+	vector<float> Y;
+	Y.push_back(0.0);
+	Y.push_back(0.0);
+	Y.push_back(0.0);
+
+	vector<float> Z;
+	Z.push_back(5.0);
+	Z.push_back(0.0);
+	Z.push_back(0.0);
+	LinearAnimation * animation = new LinearAnimation("lol",10,X,Y,Z);
 	setUpdatePeriod(30);
 }
 
@@ -146,8 +115,8 @@ void Scene::display()
 	//attributes->processnodes(attributes->getRoot(),NULL);
 	
 	//plane->draw(attributes->getTexture()["mesaText"], attributes->getAppearances()["mesaApp"]);
-	patch->draw(attributes->getTexture()["redeText"], attributes->getAppearances()["redeApp"]);
-
+	//patch->draw(attributes->getTexture()["redeText"], attributes->getAppearances()["redeApp"]);
+	vehicle->draw(attributes->getTexture()["redeText"], attributes->getAppearances()["mesaApp"]);
 
 	// ---- END feature demos
 

@@ -9,6 +9,7 @@
 #include "Light.h"
 
 #include "Primitive.h"
+#include "Animation.h"
 
 #include <math.h>
 
@@ -19,6 +20,7 @@ class Scene : public CGFscene
 	//Testes
 	Plane * plane;
 	Patch * patch;
+	Vehicle * vehicle;
 public:
 	Scene();
 	void init();
