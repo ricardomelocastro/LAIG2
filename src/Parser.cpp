@@ -29,6 +29,7 @@ Parser::Parser(const char* filename, Attributes * att)
 	printf("ANF FOUND\n");
 
 
+	animationsElement = anfElement->FirstChildElement( "animations" );
 	globalsElement = anfElement->FirstChildElement( "globals" );
 	camerasElement = anfElement->FirstChildElement( "cameras" );
 	lightsElement = anfElement->FirstChildElement( "lights" );
@@ -850,7 +851,77 @@ Parser::Parser(const char* filename, Attributes * att)
 
 	}
 
+	//----------------------------------ANIMATIONS--------------------------------------
 
+
+
+	if (animationsElement == NULL){
+		printf("Animations block not found!\n");
+		system("pause");
+		exit(1);
+	}
+	else
+	{
+		printf("Processing animations block:\n");
+		TiXmlElement* animationElement = animationsElement->FirstChildElement( "animation" );
+
+
+		while(animationElement){
+
+
+			const char * typeanimation=animationElement->Attribute("type");
+
+			if((strcmp(typeanimation,"linear") == 0)){
+				printf("Parsing linear animation\n\n");
+
+				char * id = NULL;
+				float span;
+				char * type =NULL;
+
+				vector<float> cX;
+				vector<float> cY;
+				vector<float> cZ;
+
+
+				id = (char*) animationElement->Attribute("id");
+				type = (char*) animationElement->Attribute("type");
+				if(animationElement->QueryFloatAttribute("span",&span)==TIXML_SUCCESS){
+
+
+
+
+				}
+				else{
+					printf("Invalid span entry!\n");
+					system("pause");
+					exit(1);
+				}
+
+
+
+
+			}
+
+			else if((strcmp(typeanimation,"linear") == 0)){
+				printf("Parsing circular animation\n\n");
+
+
+
+			}
+
+
+			else{
+
+				printf("Wrong type of animation\n\n");
+				system("pause");
+				exit(1);
+			}
+
+			animationElement = animationElement->NextSiblingElement();
+
+		}
+
+	}
 
 
 	//----------------------------------GRAPH--------------------------------------------

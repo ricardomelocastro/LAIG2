@@ -48,6 +48,9 @@ void Attributes::addAppearance(Appearance * appearance){
 	appearances.insert(pair<string,Appearance *>(appearance->getId(), appearance));
 }
 
+void Attributes::addAnimation(Animation * animation){
+	animations.insert(pair<string,Animation *>(animation->getId(),animation));
+}
 
 void Attributes::setGlobals(string mode, string shading, float * backgroundcolor, string cullingface, string order, bool doublesided, bool local, bool enabled, float * ambientlight) {
 

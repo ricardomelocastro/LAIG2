@@ -32,6 +32,7 @@ protected:
 	TiXmlElement* appearancesElement;
 	TiXmlElement* graphElement;
 	TiXmlElement* globalsElement;
+	TiXmlElement* animationsElement;
 
 
 };

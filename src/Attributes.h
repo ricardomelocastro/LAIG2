@@ -7,6 +7,7 @@
 #include "Node.h"
 #include "Appearance.h"
 #include "Texture.h"
+#include "Animation.h"
 
 
 
@@ -24,6 +25,7 @@ protected:
 	map<string, Appearance* > appearances;
 	map<string, Node *> graph;
 	string root_node_id;
+	map<string, Animation* > animations;
 
 
 public:
@@ -41,6 +43,7 @@ public:
 	void addNode(Node * node);
 	void addTexture(Texture * text);
 	void addAppearance(Appearance *);
+	void addAnimation(Animation *);
 
 	map<string, Camera* > getCameras();
 	map<string, Node* > getGraph();
