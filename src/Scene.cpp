@@ -68,39 +68,39 @@ void Scene::init()
 	fth.push_back(-3.0);
 	points.push_back(f8h);
 	*/
-	float * points = new float[12];
+	float * points = new float[27];
 	points[0] = 0.0;
 	points[1] = 0.0;
 	points[2] = 0.0;
 	points[3] = 0.0;
 	points[4] = 2.0;
 	points[5] = -1.0;
-	//points[6] = 0.0;
-	//points[7] = 3.0;
-	//points[8] = -1.5;
-	//points[6] = 0.0;
-	//points[7] = 2.0;
-	//points[8] = -2.0;
-	//points[9] = 0.0;
-	//points[10] = 0.0;
-	//points[11] = -3.0;
-	points[6] = 4.0;
-	points[7] = 0.0;
-	points[8] = 0.0;
-	//points[15] = 4.0;
-	//points[16] = 2.0;
-	//points[17] = -1.0;
-	points[9] = 4.0;
+	points[6] = 0.0;
+	points[7] = 3.0;
+	points[8] = -1.5;
+	points[9] = 0.0;
 	points[10] = 2.0;
-	points[11] = -1.0;
-	//points[21] = 4.0;
-	//points[22] = 0.0;
-	//points[23] = -3.0;
+	points[11] = -2.0;
+	points[12] = 0.0;
+	points[13] = 0.0;
+	points[14] = -3.0;
+	points[15] = 4.0;
+	points[16] = 0.0;
+	points[17] = 0.0;
+	points[18] = 4.0;
+	points[19] = 2.0;
+	points[20] = -1.0;
+	points[21] = 4.0;
+	points[22] = 2.0;
+	points[23] = -1.0;
+	points[24] = 4.0;
+	points[25] = 0.0;
+	points[26] = -3.0;
 	/*{
 		{0.0,0.0,0.0},{0.0,2.0,-1.0},{0.0,2.0,-2.0},{0.0,0.0,-3.0},
 		{4.0,0.0,0.0},{4.0,2.0,-1.0},{4.0,2.0,-2.0},{4.0,0.0,-3.0}};*/
 
-	patch = new Patch(1, 5, 5, points, "fill");
+	patch = new Patch(2, 5, 5, points, "fill");
 	setUpdatePeriod(30);
 }
 
@@ -145,8 +145,8 @@ void Scene::display()
 	
 	//attributes->processnodes(attributes->getRoot(),NULL);
 	
-	//plane->draw(NULL, NULL);
-	patch->draw();
+	//plane->draw(attributes->getTexture()["mesaText"], attributes->getAppearances()["mesaApp"]);
+	patch->draw(attributes->getTexture()["redeText"], attributes->getAppearances()["redeApp"]);
 
 
 	// ---- END feature demos

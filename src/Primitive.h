@@ -104,7 +104,7 @@ class Patch : public Primitive {
 public:
 	Patch(int order, int partsU, int partsV, float * control, string compute);
 	Patch(int order, int partsU, int partsV, string compute);
-	void draw();
+	void draw(Texture * texture, Appearance * appearance);
 
 private:	
 	int order, partsU, partsV;

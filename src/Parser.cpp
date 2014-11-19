@@ -1182,7 +1182,7 @@ Parser::Parser(const char* filename, Attributes * att)
 						
 					}
 				
-					//torus
+					//Torus
 					else if((strcmp(typeprims,"torus") == 0)){
 
 					
@@ -1204,30 +1204,30 @@ Parser::Parser(const char* filename, Attributes * att)
 						}
 					}
 
-					//plane
-					else if((strcmp(typeprims,"torus") == 0)){
 
-					
-						float inner, outer;
-						int slices, loops;
-						if(primitiveElement->QueryFloatAttribute("inner",&inner)==TIXML_SUCCESS&&
-							primitiveElement->QueryFloatAttribute("outer",&outer)==TIXML_SUCCESS&&
-							primitiveElement->QueryIntAttribute("slices",&slices)==TIXML_SUCCESS&&
-							primitiveElement->QueryIntAttribute("loops",&loops)==TIXML_SUCCESS){
 
-								Primitive * p = new Torus(inner,outer,slices,loops);
+					//Plane
+					else if((strcmp(typeprims,"plane") == 0)){
+
+						int parts;
+						if(primitiveElement->QueryIntAttribute("parts",&parts)==TIXML_SUCCESS){
+
+								Primitive * p = new Plane(parts);
 								node->addPrimitive(p);
-								printf("Torus primitive with inner:%f, outer:%f, slices:%i, loops:%i\n",inner,outer,slices,loops);
+								printf("Plane primitive with parts:%i\n",parts);
 						}
 						else{
-							printf("Error parsing Cylinder for node %s \n\n", node_id);
+							printf("Error parsing Plane for node %s \n\n", node_id);
 							system("pause");
 							exit(1);
 						}
 					}
 
 					//patch
-					else if((strcmp(typeprims,"torus") == 0)){
+					else if((strcmp(typeprims,"patch") == 0)){
+
+						<patch order=”ii” partsU=”ii” partsV=”ii” compute=”ss”>
+							<controlpoint x=”ff” y=”ff” z=”ff” />
 
 					
 						float inner, outer;
@@ -1253,6 +1253,7 @@ Parser::Parser(const char* filename, Attributes * att)
 						system("pause");
 						exit(1);
 					}
+
 
 					primitiveElement = primitiveElement->NextSiblingElement();
 					}

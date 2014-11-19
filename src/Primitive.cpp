@@ -315,6 +315,9 @@ Plane::Plane(int parts){
 }
 
 void Plane::draw(Texture * texture, Appearance * appearance){
+
+	appearance->apply();
+
 	GLfloat controlPoints[4][3] = {
 		//{0.0,0.0,0.0},{0.0,2.0,-1.0},{0.0,2.0,-2.0},{0.0,0.0,-3.0},
 		//{4.0,0.0,0.0},{4.0,2.0,-1.0},{4.0,2.0,-2.0},{4.0,0.0,-3.0}
@@ -332,13 +335,11 @@ void Plane::draw(Texture * texture, Appearance * appearance){
 		{0.0, 1.0, 0.0}
 	};
 
-	GLfloat texPoints[4][3] = {
-		{0.0, 0.0, 0.0},
-		{1.0, 0.0, 0.0},
-		{0.0, 0.0, 1.0},
-		{1.0, 0.0, 1.0}, 
-	};
-
+	GLfloat texPoints[4][2] =
+		{
+			{1,0}, {0,0},
+			{1,1}, {0,1}
+		};
 	//Draw
 	glMap2f(GL_MAP2_VERTEX_3, u1, u2, ustride, uorder, v1, v2, vstride, vorder, &controlPoints[0][0]);
 
@@ -346,8 +347,8 @@ void Plane::draw(Texture * texture, Appearance * appearance){
 	glMap2f(GL_MAP2_NORMAL, u1, u2, ustride, uorder, v1, v2, vstride, vorder, &normals[0][0]);
 
 	//Texturize
-	glMap2f(GL_MAP2_TEXTURE_COORD_2, u1, u2, ustride, uorder, v1, v2, vstride, vorder, &texPoints[0][0]);
-
+	//glMap2f(GL_MAP2_TEXTURE_COORD_2, u1, u2, ustride, uorder, v1, v2, vstride, vorder, &texPoints[0][0]);
+	glMap2f(GL_MAP2_TEXTURE_COORD_2, 0, 1, 4, 2, 0, 1, 2, 2, &texPoints[0][0]);
 	//Enable
 	glEnable(GL_MAP2_VERTEX_3);
 	glEnable(GL_MAP2_NORMAL);
@@ -366,22 +367,35 @@ Patch::Patch(int order, int partsU, int partsV, string compute){
 
 Patch::Patch(int order, int partsU, int partsV, float * controlPts, string compute){
 	this->control = controlPts;
-	this->order = order + 1; 
+	this->order += 1; 
 	this->partsU = partsU;
 	this->partsV = partsV;
 	this->compute = compute;
 }
 
-void Patch::draw(){
+void Patch::draw(Texture * texture, Appearance * appearance){
 
-	glEnable(GL_MAP2_VERTEX_3);
+	appearance->apply();
+
+	
 	glMap2f(GL_MAP2_VERTEX_3, 0.0, 1.0, 3, order,  0.0, 1.0, 3 * order, order, control);
 	
+	GLfloat texPoints[4][2] =
+		{
+			{1,0}, {0,0},
+			{1,1}, {0,1}
+		};
+
+	
+	
+	glMap2f(GL_MAP2_TEXTURE_COORD_2, 0, 1, 4, 2, 0, 1, 2, 2, &texPoints[0][0]);
+	glEnable(GL_MAP2_VERTEX_3);
 	glEnable(GL_AUTO_NORMAL);
+	glEnable(GL_MAP2_TEXTURE_COORD_2);
 
 	glMapGrid2f(partsU, 0.0, 1.0, partsV, 0.0, 1.0); 
-
-	glEnable(GL_LIGHTING);
+	
+	
 	
 	if(compute == "fill")
 		glEvalMesh2(GL_FILL, 0, this->partsU, 0, this->partsV);
@@ -392,3 +406,4 @@ void Patch::draw(){
 	}
 	glDisable(GL_MAP2_VERTEX_3);
 }
+

@@ -4,7 +4,6 @@ Attributes::Attributes(){}
 
 int indexofdisplay;
 
-int calls = 1;
 
 void Attributes::setRootId(string root){
 	this->root_node_id = root;
@@ -194,7 +193,7 @@ void Attributes::processnodes(string root, Appearance * parentapp){
 			glCallList(no->getIndex());
 		}else{
 			printf("passed here %i times", calls);
-			calls ++;
+			++calls;
 			//printf("appearanceref processnodes: %s\n", no->appearanceref);
 			glMultMatrixf(no->T_matrix);
 			Appearance * appearanceToApply;
