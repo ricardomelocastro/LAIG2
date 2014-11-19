@@ -367,7 +367,7 @@ Patch::Patch(int order, int partsU, int partsV, string compute){
 
 Patch::Patch(int order, int partsU, int partsV, float * controlPts, string compute){
 	this->control = controlPts;
-	this->order += 1; 
+	this->order = order + 1; 
 	this->partsU = partsU;
 	this->partsV = partsV;
 	this->compute = compute;
@@ -386,8 +386,6 @@ void Patch::draw(Texture * texture, Appearance * appearance){
 			{1,1}, {0,1}
 		};
 
-	
-	
 	glMap2f(GL_MAP2_TEXTURE_COORD_2, 0, 1, 4, 2, 0, 1, 2, 2, &texPoints[0][0]);
 	glEnable(GL_MAP2_VERTEX_3);
 	glEnable(GL_AUTO_NORMAL);
@@ -407,3 +405,69 @@ void Patch::draw(Texture * texture, Appearance * appearance){
 	glDisable(GL_MAP2_VERTEX_3);
 }
 
+Vehicle::Vehicle(){
+}
+
+Vehicle::Vehicle(float * control){
+	this->control = control;
+}
+void Vehicle::draw(Texture * texture, Appearance * appearance){
+	float * control = new float[48];
+	//control[0]= 0.0;
+	//control[1]= 0.0;
+	//control[2]= 0.0;
+	control[0]= 0.5;
+	control[1]= 0.0;
+	control[2]= 0.3;
+	control[3]= 0.5;
+	control[4]= 0.2;
+	control[5]= 0.1;
+	control[6]= 0.5;
+	control[7]= 0.2;
+	control[8]= -0.1;
+	control[9]= 0.5;
+	control[10]= 0.2;
+	control[11]= -0.3;
+	control[12]= 0.7;
+	control[13]= 0.0;
+	control[14]= 0.3;
+	control[15]= 0.7;
+	control[16]= 0.1; 
+	control[17]= 0.1;
+	control[18]= 0.7;
+	control[19]= 0.1; 
+	control[20]= -0.1;
+	control[21]= 0.7;
+	control[22]= 0.0;
+	control[23]= -0.3;
+	control[24]= 1.0;
+	control[25]= 0.0;
+	control[26]= 0.3;
+	control[27]= 1.0;
+	control[28]= 0.3;
+	control[29]= 0.1;
+	control[30]= 1.0;
+	control[31]= 0.3;
+	control[32]= -0.1;
+	control[33]= 1.0;
+	control[34]= 0.0;
+	control[35]= -0.3;
+	control[36]= 1.2;
+	control[37]= 0.0;
+	control[38]= 0.3;
+	control[39]= 1.2;
+	control[40]= 0.0;
+	control[41]= 0.1;
+	control[42]= 1.2;
+	control[43]= 0.0;
+	control[44]= -0.1;
+	control[45]= 1.2;
+	control[46]= 0.0;
+	control[47]= -0.3;
+
+	glTranslatef(0.0,2.0,0.0);
+	Patch * upper = new Patch(3,10,10,control,"fill");
+
+	upper->draw(texture, appearance);
+
+}
