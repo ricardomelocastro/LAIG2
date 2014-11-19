@@ -112,29 +112,13 @@ private:
 	float * control; // num pontos = (ordem+1)^2
 };
 
-/*
+
 class Vehicle : public Primitive {
+	float * control;
 public:
 	Vehicle();
-
-	void draw();
-
-	// create object
-	void createTube();
-	void createFront();
-	void createBack();
-	void createTail();
-	void createBridge();
-	void createBridgeTower();
-
-protected:
-
-	vector<Primitive *> obj;
-	int numPatches;
-
+	Vehicle(float * control);
+	void draw(Texture * texture, Appearance * appearance);
 };
-
-*/
-
 
 #endif
