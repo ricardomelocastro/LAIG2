@@ -7,10 +7,18 @@ Animation::Animation(string id, float span, string type){
 }
 
 void LinearAnimation::init(unsigned long t){
+
+	if(controlX.size() > 0 && controlY.size() > 0 && controlZ.size() > 0) {
+		newX = controlX[0];
+		newY = controlY[0];
+		newZ = controlZ[0];
+	} else {
+		newX = newY = newZ = 0;
+	}
+
+
 	this->stime = t;
-	newX = controlX[0];
-	newY = controlY[0];
-	newZ = controlZ[0];
+	this->reset = false;
 }
 
 LinearAnimation::LinearAnimation(string id, float span, vector<float>controlX,vector<float>controlY,vector<float>controlZ): Animation(id,span,"linear"){
@@ -18,11 +26,13 @@ LinearAnimation::LinearAnimation(string id, float span, vector<float>controlX,ve
 	this->controlX = controlX;
 	this->controlY = controlY;
 	this->controlZ = controlZ;
-	
+	this->distance = 0;
 	for(unsigned int i = 1; i < controlX.size(); i++) {
 		this->distance += sqrtf(pow(controlX[i]-controlX[i-1], 2) + pow(controlY[i]-controlY[i-1], 2) + pow(controlZ[i]-controlZ[i-1], 2));
 	}
 	this->actualPos = 0;
+	this->reset = true;
+
 	//this->newX=0;
 	//this->newY=0;
 	//this->newZ=0;
@@ -30,13 +40,18 @@ LinearAnimation::LinearAnimation(string id, float span, vector<float>controlX,ve
 
 void LinearAnimation::update(unsigned long t){
 
+	if(this->reset){
+		this->init(t);
+	}
+
 	unsigned long time = t - this->stime;
 	this->stime = t;
 
 	float direction[3]; //represents the movement vector
-	direction[0] = controlX[actualPos++] - controlX[actualPos];
-	direction[1] = controlY[actualPos++] - controlY[actualPos];
-	direction[2] = controlZ[actualPos++] - controlZ[actualPos];
+	direction[0] = controlX[actualPos+1] - controlX[actualPos];
+	direction[1] = controlY[actualPos+1] - controlY[actualPos];
+	direction[2] = controlZ[actualPos+1] - controlZ[actualPos];
+
 
 	float norm = sqrtf(pow(direction[0], 2) + pow(direction[1], 2) + pow(direction[2], 2));
 
@@ -44,7 +59,7 @@ void LinearAnimation::update(unsigned long t){
 	direction[1] = direction[1]/norm;
 	direction[2] = direction[2]/norm;
 
-	float velocity = (distance/span);
+	float velocity = (distance/(span*1000))*time;
 
 	direction[0] = direction[0] * velocity;
 	direction[1] = direction[1] * velocity;
@@ -90,6 +105,7 @@ void LinearAnimation::update(unsigned long t){
 }
 
 void LinearAnimation::apply(){
+	//actualPos++;
 	glTranslatef(this->newX,this->newY,this->newZ);
 }
 
@@ -99,3 +115,11 @@ CircularAnimation::CircularAnimation(string id, float span, float * center, floa
 	this->startang = startang;
 	this->rotang = rotang;
 }
+
+void Animation::apply(){}
+void Animation::update(unsigned long t){}
+	void Animation::reset(){}
+
+	void CircularAnimation::apply(){}
+void CircularAnimation::update(unsigned long t){}
+	void CircularAnimation::reset(){}

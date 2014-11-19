@@ -40,11 +40,11 @@ private:
 	float newY;
 	float newZ;
 	unsigned long stime;
+	bool reset;
 public:
 	LinearAnimation(string id, float span,vector<float>controlX,vector<float>controlY,vector<float>controlZ);
 	void apply();
 	void update(unsigned long t);
-	void reset();
 	void init(unsigned long t);
 	
 
