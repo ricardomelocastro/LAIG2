@@ -192,8 +192,7 @@ void Attributes::processnodes(string root, Appearance * parentapp){
 		if(no->getDisplaylist()){
 			glCallList(no->getIndex());
 		}else{
-			printf("passed here %i times", calls);
-			++calls;
+			
 			//printf("appearanceref processnodes: %s\n", no->appearanceref);
 			glMultMatrixf(no->T_matrix);
 			Appearance * appearanceToApply;

@@ -1226,23 +1226,76 @@ Parser::Parser(const char* filename, Attributes * att)
 					//patch
 					else if((strcmp(typeprims,"patch") == 0)){
 
-						<patch order=”ii” partsU=”ii” partsV=”ii” compute=”ss”>
-							<controlpoint x=”ff” y=”ff” z=”ff” />
+						/*<patch order=”ii” partsU=”ii” partsV=”ii” compute=”ss”>
+							<controlpoint x=”ff” y=”ff” z=”ff” />*/
+						int n = 0;
+						int cpSize;
 
-					
-						float inner, outer;
-						int slices, loops;
-						if(primitiveElement->QueryFloatAttribute("inner",&inner)==TIXML_SUCCESS&&
-							primitiveElement->QueryFloatAttribute("outer",&outer)==TIXML_SUCCESS&&
-							primitiveElement->QueryIntAttribute("slices",&slices)==TIXML_SUCCESS&&
-							primitiveElement->QueryIntAttribute("loops",&loops)==TIXML_SUCCESS){
+						int order, partsU, partsV;
+						char * compute = NULL;
+						float cpx, cpy, cpz;
+						float * control;
 
-								Primitive * p = new Torus(inner,outer,slices,loops);
+						TiXmlElement* patchElement=primitiveElement->FirstChildElement("controlpoint");
+
+						if(primitiveElement->QueryIntAttribute("order",&order)==TIXML_SUCCESS&&
+							primitiveElement->QueryIntAttribute("partsU",&partsU)==TIXML_SUCCESS&&
+							primitiveElement->QueryIntAttribute("partsV",&partsV)==TIXML_SUCCESS){
+
+								compute = (char *) primitiveElement->Attribute("compute");
+
+								if (strcmp(compute,"fill") == 0 || strcmp(compute,"line") == 0 || strcmp(compute,"point") == 0){
+									printf("Compute mode: %s\n", compute);
+
+
+
+									cpSize = ((order +1)*(order+1))*3;
+
+									control = new float[cpSize]();
+									while(patchElement){
+										if(primitiveElement->QueryFloatAttribute("x",&cpx)==TIXML_SUCCESS&&
+											primitiveElement->QueryFloatAttribute("y",&cpy)==TIXML_SUCCESS&&
+											primitiveElement->QueryFloatAttribute("z",&cpz)==TIXML_SUCCESS){
+
+												control[n] = cpx;
+												++n;
+												control[n] = cpy;
+												++n;
+												control[n] = cpz;
+												++n;
+
+												patchElement = patchElement->NextSiblingElement();
+
+										}
+										else{
+
+											printf("Error parsing control points!\n");
+											system("pause");
+											exit(1);
+										}
+									}
+									
+								}
+								else{
+									printf("Wrong compute attribute!\n");
+									system("pause");
+									exit(1);
+								}
+
+								Primitive * p = new Patch(order, partsU, partsV, control,compute);
 								node->addPrimitive(p);
-								printf("Torus primitive with inner:%f, outer:%f, slices:%i, loops:%i\n",inner,outer,slices,loops);
+								printf("Patch primitive with order:%f, partsU:%f, partsS:%i, Compute:%s\n",order,partsU,partsV,compute);
+								int temp = 0;
+								int temp2 = 0;
+								int totaltemp2 = (order+1)*(order+1);
+								for(temp2;temp2< totaltemp2;++temp2){
+									printf("controlpoint%temp2, x:%f, y:%f, z:%f\n",control[n],control[n+1],control[n+2]);
+									temp+=3;
+								}
+
 						}
 						else{
-							printf("Error parsing Cylinder for node %s \n\n", node_id);
+							printf("Error parsing Patch for node %s \n\n", node_id);
 							system("pause");
 							exit(1);
 						}
