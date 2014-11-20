@@ -99,7 +99,7 @@ private:
     int vorder;
 };
 
-
+//Patch
 class Patch : public Primitive {
 public:
 	Patch(int order, int partsU, int partsV, float * control, string compute);
@@ -113,6 +113,7 @@ private:
 };
 
 
+//Vehicle
 class Vehicle : public Primitive {
 	float * control;
 public:
@@ -124,6 +125,13 @@ public:
 	void bottom(Texture * texture, Appearance * appearance);
 	void mid(Texture * texture, Appearance * appearance);
 	void back(Texture * texture, Appearance * appearance);
+};
+
+class Flag : public Primitive {
+	string textureref;
+public:
+	Flag(string texture){}
+	
 };
 
 #endif

@@ -36,7 +36,9 @@ public:
 	bool getDisplaylist();
 	void setIndex(int newI);
 	int getIndex();
+
 	vector<string> animations;
+	void addAnimation(string animation);
 };
 
 #endif

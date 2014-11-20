@@ -55,3 +55,9 @@ void Node::setIndex(int newI){
 int Node::getIndex(){
 	return this->indexofDL;
 }
+
+void Node::addAnimation(string animation){
+
+	this->animations.push_back(animation);
+
+}

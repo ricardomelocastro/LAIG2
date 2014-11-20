@@ -853,8 +853,6 @@ Parser::Parser(const char* filename, Attributes * att)
 
 	//----------------------------------ANIMATIONS--------------------------------------
 
-
-
 	if (animationsElement == NULL){
 		printf("Animations block not found!\n");
 		system("pause");
@@ -885,31 +883,98 @@ Parser::Parser(const char* filename, Attributes * att)
 
 				id = (char*) animationElement->Attribute("id");
 				type = (char*) animationElement->Attribute("type");
-				if(animationElement->QueryFloatAttribute("span",&span)==TIXML_SUCCESS){
+				if(animationElement->QueryFloatAttribute("span",&span)==TIXML_SUCCESS &&
+					id!=NULL && type!=NULL){
 
+					float xx, yy,zz;
+					TiXmlElement* controlpointElement = animationElement->FirstChildElement( "controlpoint" );
+					while(controlpointElement){
+						if(controlpointElement->QueryFloatAttribute("x",&xx)==TIXML_SUCCESS &&
+							controlpointElement->QueryFloatAttribute("y",&yy)==TIXML_SUCCESS &&
+							controlpointElement->QueryFloatAttribute("z",&zz)==TIXML_SUCCESS){
+								cX.push_back(xx);
+								cY.push_back(yy);
+								cZ.push_back(zz);
 
+						}
+						else{
+							printf("Invalid controlpoint!\n");
+							system("pause");
+							exit(1);
+	
+						}
 
+						controlpointElement = controlpointElement->NextSiblingElement();
+					}
 
 				}
 				else{
-					printf("Invalid span entry!\n");
+					printf("Invalid span entry or id not found or wrong type!\n");
 					system("pause");
 					exit(1);
 				}
 
-
-
-
+				Animation * temp = new LinearAnimation(id,span,cX,cY,cZ);
+				att->addAnimation(temp);
+				printf("Linear Animation Added!\n");
 			}
 
-			else if((strcmp(typeanimation,"linear") == 0)){
+			else if((strcmp(typeanimation,"circular") == 0)){
 				printf("Parsing circular animation\n\n");
 
+				char * id = NULL;
+				float span;
+				char * type =NULL;
+				char * tempcenter = NULL;
+				float * center = new float[3]();
+				float cx;
+				float cy;
+				float cz;
+				float radius;
+				float startang;
+				float rotang;
+
+				id = (char*) animationElement->Attribute("id");
+				type = (char*) animationElement->Attribute("type");
+
+				if(animationElement->QueryFloatAttribute("span",&span)==TIXML_SUCCESS &&
+					type!=NULL && id!=NULL){
+					tempcenter = (char *) animationElement->Attribute("center");
+					if(tempcenter && sscanf(tempcenter,"%f %f %f",&cx, &cy, &cz)==3){
+
+						center[0] = cx;
+						center[1] = cy;
+						center[2] = cz;
+
+						if(animationElement->QueryFloatAttribute("radius",&radius)==TIXML_SUCCESS &&
+							animationElement->QueryFloatAttribute("startang",&startang)==TIXML_SUCCESS &&
+							animationElement->QueryFloatAttribute("rotang",&rotang)==TIXML_SUCCESS){
 
 
+								Animation * temp = new CircularAnimation(id,span,center,radius,startang,rotang);
+								att->addAnimation(temp);
+								printf("Circular Animation Added!\n");
+
+
+						}
+						else{
+							printf("Invalid radius or startang or rotang!\n");
+							system("pause");
+							exit(1);
+						}
+					}
+					else{
+						printf("Error parsing center!\n");
+						system("pause");
+						exit(1);
+					}
+				}
+				else{
+					printf("Invalid span entry or id not found or wrong type!\n");
+					system("pause");
+					exit(1);
+				}
 			}
-
-
 			else{
 
 				printf("Wrong type of animation\n\n");
@@ -954,6 +1019,7 @@ Parser::Parser(const char* filename, Attributes * att)
 
 		while(nodeElement){
 
+			TiXmlElement* animationrefElement=nodeElement->FirstChildElement("animationref");
 			TiXmlElement* transformsElement=nodeElement->FirstChildElement("transforms");
 			TiXmlElement* appearancerefElement=nodeElement->FirstChildElement("appearanceref");
 			TiXmlElement* primitivesElement=nodeElement->FirstChildElement("primitives");
@@ -1135,6 +1201,23 @@ Parser::Parser(const char* filename, Attributes * att)
 				}
 			}
 			
+			if(!animationrefElement){
+				printf("No Animation Reference found for node\n");
+			}
+			else{
+				char * animationrefid=NULL;
+				while(animationrefElement){
+
+					animationrefid = (char *) animationrefElement->Attribute("id");
+
+					node->addAnimation(animationrefid);
+
+					printf("Animation with id = %s added to node\n",animationrefid);
+
+					animationrefElement = animationrefElement->NextSiblingElement();
+				}
+			}
+
 
 			if(!primitivesElement && !descendantsElement){
 				printf("ERROR! Primitives and descendants block not found\n\n");
@@ -1297,8 +1380,6 @@ Parser::Parser(const char* filename, Attributes * att)
 					//patch
 					else if((strcmp(typeprims,"patch") == 0)){
 
-						/*<patch order=”ii” partsU=”ii” partsV=”ii” compute=”ss”>
-							<controlpoint x=”ff” y=”ff” z=”ff” />*/
 						int n = 0;
 						int cpSize;
 
@@ -1371,6 +1452,35 @@ Parser::Parser(const char* filename, Attributes * att)
 							exit(1);
 						}
 					}
+
+					//vehicle
+					else if((strcmp(typeprims,"vehicle") == 0)){
+
+						Primitive * p = new Vehicle();
+						node->addPrimitive(p);
+						printf("Vehicle primitive added\n");
+
+					}
+
+					//Flag
+					else if((strcmp(typeprims,"plane") == 0)){
+
+						char * text = NULL;
+						text = (char *) primitiveElement->Attribute("texture");
+
+						if ( !att->verifyTextureref(text) ) {
+							printf("Texture with textureref %s not found\n", text);
+							system("pause");
+							exit(1);
+						}
+
+						Primitive * p = new Flag(text);
+						node->addPrimitive(p);
+						printf("Flag primitive added\n");
+
+						
+					}
+
 
 					else{
 						printf("Invalid primitive type for node %s \n", node_id);

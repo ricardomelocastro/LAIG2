@@ -26,6 +26,8 @@ public:
 	virtual void reset();
 	virtual void init(unsigned long t);
 	string getId();
+
+	virtual void applyCompleted();
 };
 
 
@@ -43,12 +45,14 @@ protected:
 	float newZ;
 	unsigned long stime;
 	bool reset;
+
 public:
 	LinearAnimation(string id, float span,vector<float>controlX,vector<float>controlY,vector<float>controlZ);
 	void apply();
 	void update(unsigned long t);
 	void init(unsigned long t);
 	
+	void applyCompleted();
 
 };
 
@@ -74,6 +78,8 @@ public:
 	void update(unsigned long t);
 	void init(unsigned long t);
 	void reset();
+
+	void applyCompleted();
 
 };
 

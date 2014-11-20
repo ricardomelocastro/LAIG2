@@ -8,12 +8,14 @@ void Scene::init()
 {
 
 	attributes = new Attributes();
-	string filename;
+	/*string filename;
 	cout << "Insert the ANF filename: " << endl;
 	cin >> filename;
 
 	Parser teste = Parser(filename.c_str(), attributes);
-	
+	*/
+
+	Parser teste = Parser("textures/pingpong.anf", attributes);
 	attributes->processglobals();
 	
 	//attributes->createDisplay(attributes->getRoot(), NULL);

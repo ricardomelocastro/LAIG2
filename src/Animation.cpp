@@ -135,9 +135,33 @@ void CircularAnimation::apply(){
 	glRotatef(rotationangle, 0, 1, 0);
 	glTranslatef(-this->center[0], -this->center[1], -this->center[2]);
 
+}
+
+
+void Animation::applyCompleted(){}
+
+void LinearAnimation::applyCompleted(){
+	float totalX = 0;
+	//float totalY = 0;
+	float totalZ = 0;
+
+	for(unsigned int i = 0; i < this->controlX.size(); ++i){
+		totalX += controlX[i];
+		//totalY += controlY[i];
+		totalZ += controlZ[i];
+	}
+
+	glTranslatef(totalX,0,totalZ);
 
 }
 
+void CircularAnimation::applyCompleted(){
+
+	glTranslatef(this->center[0] , this->center[1], this->center[2]);
+	glRotatef(this->rotang, 0, 1, 0);
+	glTranslatef(-this->center[0], -this->center[1], -this->center[2]);
+
+}
 
 
 void Animation::apply(){}
