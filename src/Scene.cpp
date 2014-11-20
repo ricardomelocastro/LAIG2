@@ -18,7 +18,7 @@ void Scene::init()
 	Parser teste = Parser("textures/pingpong.anf", attributes);
 	attributes->processglobals();
 	
-	//attributes->createDisplay(attributes->getRoot(), NULL);
+	attributes->createDisplay(attributes->getRoot(), NULL);
 	/*
 	plane = new Plane(2);
 	float * points = new float[27];
@@ -55,7 +55,7 @@ void Scene::init()
 	/*
 	patch = new Patch(2, 5, 5, points, "fill");
 	*/
-	vehicle = new Vehicle();
+	/*vehicle = new Vehicle();
 	vector<float> X;
 	X.push_back(0.0);
 	X.push_back(0.0);
@@ -76,13 +76,17 @@ void Scene::init()
 	c[1] = 2;
 	c[2] = 2;
 
-	animation = new CircularAnimation("lol",5,c,10,0,90);
+	animation = new CircularAnimation("lol",5,c,10,0,90);*/
 	setUpdatePeriod(30);
 }
 
 void Scene::update(unsigned long t)
 {
-	animation->update(t);
+
+	//update node
+	
+	attributes->updateAnimationsNodes(t);
+
 }
 	
 void Scene::display() 
@@ -119,14 +123,14 @@ void Scene::display()
 	// ---- BEGIN feature demos
 
 	
-	//attributes->processnodes(attributes->getRoot(),NULL);
+	attributes->processnodes(attributes->getRoot(),NULL);
 	
 	//plane->draw(attributes->getTexture()["mesaText"], attributes->getAppearances()["mesaApp"]);
 	//patch->draw(attributes->getTexture()["redeText"], attributes->getAppearances()["redeApp"]);
-	glPushMatrix();
+	/*glPushMatrix();
 	animation->apply();
 	vehicle->draw(attributes->getTexture()["redeText"], attributes->getAppearances()["mesaApp"]);
-	glPopMatrix();
+	glPopMatrix();*/
 	// ---- END feature demos
 
 	// We have been drawing in a memory area that is not visible - the back buffer, 

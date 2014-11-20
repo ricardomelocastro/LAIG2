@@ -6,7 +6,7 @@
 #include <iostream>
 #include <math.h>
 #include <CGFobject.h>
-#define PI 3.14159265359
+
 
 using namespace std;
 
@@ -28,6 +28,7 @@ public:
 	string getId();
 
 	virtual void applyCompleted();
+	virtual bool hasEnded();
 };
 
 
@@ -45,6 +46,7 @@ protected:
 	float newZ;
 	unsigned long stime;
 	bool reset;
+	bool ended;
 
 public:
 	LinearAnimation(string id, float span,vector<float>controlX,vector<float>controlY,vector<float>controlZ);
@@ -53,6 +55,7 @@ public:
 	void init(unsigned long t);
 	
 	void applyCompleted();
+	bool hasEnded();
 
 };
 
@@ -70,7 +73,8 @@ protected:
 	bool resett;
 	float rotationangle;
 	float radius;
-	
+	bool ended;
+	bool hasEnded();
 
 public:
 	CircularAnimation(string id, float span, float * center, float radius, float startang, float rotang);

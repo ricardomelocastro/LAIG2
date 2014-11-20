@@ -19,7 +19,8 @@ public:
 	vector<string> descendants;
 	bool displaylist;
 	int indexofDL;
-
+	int animationIt;
+	bool animated;
 
 	Node(string node_id);
 	void set_Matrix(float * T_matrix);
@@ -39,6 +40,12 @@ public:
 
 	vector<string> animations;
 	void addAnimation(string animation);
+
+	void setAnimated();
+	bool hasAnimation();
+
+	string getActiveAnimationID();
+
 };
 
 #endif

@@ -68,6 +68,8 @@ public:
 	void createDisplay(string root,  Appearance * parentapp);
 	void processNodesForList(string root, Appearance * parentapp);
 
+	void updateAnimationsNodes(unsigned long t);
+
 	//void setIndex(int newIndex);
 	//int getIndex();
 	//void incIndex();

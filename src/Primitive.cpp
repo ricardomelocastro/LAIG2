@@ -463,7 +463,7 @@ Vehicle::Vehicle(float * control){
 	this->control = control;
 }
 
-void Vehicle::draw(Texture * texture, Appearance * appearance){
+void Vehicle::Draw(Texture * texture, Appearance * appearance){
 	glPushMatrix();
 	glTranslatef(0.0,2.0,0.0);
 	upper(texture, appearance);

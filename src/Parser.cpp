@@ -889,9 +889,9 @@ Parser::Parser(const char* filename, Attributes * att)
 					float xx, yy,zz;
 					TiXmlElement* controlpointElement = animationElement->FirstChildElement( "controlpoint" );
 					while(controlpointElement){
-						if(controlpointElement->QueryFloatAttribute("x",&xx)==TIXML_SUCCESS &&
-							controlpointElement->QueryFloatAttribute("y",&yy)==TIXML_SUCCESS &&
-							controlpointElement->QueryFloatAttribute("z",&zz)==TIXML_SUCCESS){
+						if(controlpointElement->QueryFloatAttribute("xx",&xx)==TIXML_SUCCESS &&
+							controlpointElement->QueryFloatAttribute("yy",&yy)==TIXML_SUCCESS &&
+							controlpointElement->QueryFloatAttribute("zz",&zz)==TIXML_SUCCESS){
 								cX.push_back(xx);
 								cY.push_back(yy);
 								cZ.push_back(zz);
@@ -1211,13 +1211,15 @@ Parser::Parser(const char* filename, Attributes * att)
 					animationrefid = (char *) animationrefElement->Attribute("id");
 
 					node->addAnimation(animationrefid);
+					node->setAnimated();
 
 					printf("Animation with id = %s added to node\n",animationrefid);
 
-					animationrefElement = animationrefElement->NextSiblingElement();
+					animationrefElement = animationrefElement->NextSiblingElement("animationref");
 				}
 			}
 
+			printf("passou aqui");
 
 			if(!primitivesElement && !descendantsElement){
 				printf("ERROR! Primitives and descendants block not found\n\n");

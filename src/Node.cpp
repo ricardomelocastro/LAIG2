@@ -2,6 +2,8 @@
 
 Node::Node(string node_id){
 	this->node_id = node_id;
+	this->animationIt = 0;
+	this->animated = false;
 }
 
 void Node::set_appearanceref(string appref){
@@ -60,4 +62,19 @@ void Node::addAnimation(string animation){
 
 	this->animations.push_back(animation);
 
+}
+
+void Node::setAnimated(){
+
+	this->animated = true;
+}
+
+bool Node::hasAnimation(){
+
+	return animated;
+}
+
+string Node::getActiveAnimationID(){
+
+	return this->animations[this->animationIt];
 }

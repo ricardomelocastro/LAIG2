@@ -199,6 +199,27 @@ void Attributes::processnodes(string root, Appearance * parentapp){
 			//printf("appearanceref processnodes: %s\n", no->appearanceref);
 			glMultMatrixf(no->T_matrix);
 			Appearance * appearanceToApply;
+
+
+
+			if(no->hasAnimation()){
+				
+
+				if(no->animationIt>0){
+					for(int i = 0; i < no->animationIt;++i){
+						
+						this->animations[no->animations[i]]->applyCompleted();
+						printf("entrou aqui 2\n");
+						
+					}
+
+				}
+
+				
+				this->animations[no->getActiveAnimationID()]->apply();
+				
+				
+			}
 			
 			if((no->appearanceref != "inherit") || (parentapp == NULL)){
 				appearanceToApply = appearances[no->appearanceref];
@@ -287,6 +308,24 @@ void Attributes::processNodesForList(string root, Appearance * parentapp){
 	else{
 		appearanceToApply = parentapp;
 	}
+
+
+
+	if(no->hasAnimation()){
+		
+
+		if(no->animationIt>0){
+			for(int i = 0; i < no->animationIt;++i){
+				this->animations[no->animations[i]]->applyCompleted();
+			}
+
+		}
+
+		this->animations[no->getActiveAnimationID()]->apply();
+	}
+
+
+
 	glMultMatrixf(no->T_matrix);
 
 	for(vector<string>::iterator it = no->descendants.begin(); it!= no->descendants.end();++it){
@@ -307,7 +346,27 @@ void Attributes::processNodesForList(string root, Appearance * parentapp){
 
 
 
+void Attributes::updateAnimationsNodes(unsigned long t){
 
+	map<string, Node *>::iterator it;
+
+    for (it = graph.begin(); it != graph.end(); ++it) {
+
+		if((*it).second->hasAnimation()){
+
+			printf("encontrou!!\n");
+
+			if(this->animations[(*it).second->getActiveAnimationID()]->hasEnded() && ((*it).second->animationIt < (*it).second->animations.size()-1)){
+				++(*it).second->animationIt;
+			}
+
+			this->animations[(*it).second->getActiveAnimationID()]->update(t);
+
+		}
+
+	}
+
+}
 
 
 /*

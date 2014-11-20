@@ -119,7 +119,7 @@ class Vehicle : public Primitive {
 public:
 	Vehicle();
 	Vehicle(float * control);
-	void draw(Texture * texture, Appearance * appearance);
+	void Draw(Texture * texture, Appearance * appearance);
 	
 	void upper(Texture * texture, Appearance * appearance);
 	void bottom(Texture * texture, Appearance * appearance);

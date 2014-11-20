@@ -37,6 +37,7 @@ LinearAnimation::LinearAnimation(string id, float span, vector<float>controlX,ve
 	}
 	this->actualPos = 0;
 	this->reset = true;
+	this->ended = false;
 
 	//this->newX=0;
 	//this->newY=0;
@@ -58,6 +59,7 @@ void LinearAnimation::update(unsigned long t){
 	}
 
 	if(actualPos == controlX.size()-1){
+		ended = true;
 		return;
 	}
 
@@ -108,6 +110,7 @@ CircularAnimation::CircularAnimation(string id, float span, float * center, floa
 	this->rotationvelocity = rotang / (span*1000);
 	this->resett = true;
 	this->radius = radius;
+	this->ended = false;
 
 }
 
@@ -127,6 +130,9 @@ void CircularAnimation::update(unsigned long t){
 
 	if(dt<=(span*1000))
 		this->rotationangle = rotationvelocity *dt;
+
+	if(dt>=(span*1000))
+		this->ended = true;
 
 }
 
@@ -169,3 +175,17 @@ void Animation::init(unsigned long t){}
 void Animation::update(unsigned long t){}
 void Animation::reset(){}
 void CircularAnimation::reset(){}
+
+
+bool LinearAnimation::hasEnded(){
+
+	return ended;
+}
+
+bool CircularAnimation::hasEnded(){
+	return ended;
+}
+
+bool Animation::hasEnded(){
+	return 0;
+}
