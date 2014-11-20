@@ -21,6 +21,7 @@ class Scene : public CGFscene
 	Plane * plane;
 	Patch * patch;
 	Vehicle * vehicle;
+	Animation * animation;
 public:
 	Scene();
 	void init();

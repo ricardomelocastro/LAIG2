@@ -858,7 +858,7 @@ Parser::Parser(const char* filename, Attributes * att)
 	if (animationsElement == NULL){
 		printf("Animations block not found!\n");
 		system("pause");
-		exit(1);
+		//exit(1);
 	}
 	else
 	{

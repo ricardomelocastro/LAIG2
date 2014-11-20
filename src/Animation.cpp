@@ -6,6 +6,11 @@ Animation::Animation(string id, float span, string type){
 	this->type = type;
 }
 
+string Animation::getId(){
+
+	return this->id;
+}
+
 void LinearAnimation::init(unsigned long t){
 
 	if(controlX.size() > 0 && controlY.size() > 0 && controlZ.size() > 0) {
@@ -47,6 +52,15 @@ void LinearAnimation::update(unsigned long t){
 	unsigned long time = t - this->stime;
 	this->stime = t;
 
+	if(actualPos < controlX.size()-1  && newX == controlX[actualPos+1] && newY == controlY[actualPos+1] && newZ == controlZ[actualPos+1]) 
+	{
+		actualPos++;
+	}
+
+	if(actualPos == controlX.size()-1){
+		return;
+	}
+
 	float direction[3]; //represents the movement vector
 	direction[0] = controlX[actualPos+1] - controlX[actualPos];
 	direction[1] = controlY[actualPos+1] - controlY[actualPos];
@@ -69,57 +83,65 @@ void LinearAnimation::update(unsigned long t){
 	newY += direction[1];
 	newZ += direction[2];
 
-	/*
-	// Verificar se não passou o ponto de controlo seguinte
-	if( (v[0] > 0 && xTrans > controlX[previousPoint+1])
-		|| (v[0] < 0 && xTrans < controlX[previousPoint+1]))
-		xTrans = controlX[previousPoint+1];
-
-	if( (v[1] > 0 && yTrans > controlY[previousPoint+1])
-		|| (v[1] < 0 && yTrans < controlY[previousPoint+1]) )
-		yTrans = controlY[previousPoint+1];
-
-	if( (v[2] > 0 && zTrans > controlZ[previousPoint+1])
-		|| (v[2] < 0 && zTrans < controlZ[previousPoint+1]))
-		zTrans = controlZ[previousPoint+1];
-		
 	
-	// Declarando vetores para calcular o ângulo
-	float v1[2]; // vetor do segmento de recta a ser actualmente percorrido
-	float v2[2]; // vector do segmento de recta unitário no eixo dos zz
+	if( (direction[0] > 0 && newX > controlX[actualPos+1]) || (direction[0] < 0 && newX < controlX[actualPos+1]))
+		newX = controlX[actualPos+1];
 
-	if(previousPoint + 1 < controlX.size()){
-		v1[0] = controlX[previousPoint + 1] - controlX[previousPoint];
-		v1[1] =	controlZ[previousPoint + 1] - controlZ[previousPoint];
-		v2[0] = 0;
-		v2[1] = 1;
+	if( (direction[1] > 0 && newY > controlY[actualPos+1]) || (direction[1] < 0 && newY < controlY[actualPos+1]) )
+		newY = controlY[actualPos+1];
 
-		float scalar = v1[0] * v2[0] + v1[1] * v2[1];
-		float norm1 = sqrt(pow(v1[0],2.0)+pow(v1[1],2.0));
-		float norm2 = sqrt(pow(v2[0],2.0)+pow(v2[1],2.0));
-		rotation = acos(scalar/(norm1*norm2)) * (180/_PI);
-	}
+	if( (direction[2] > 0 && newZ > controlZ[actualPos+1]) || (direction[2] < 0 && newZ < controlZ[actualPos+1]))
+		newZ = controlZ[actualPos+1];
+		
 
-	printf("Rotation: %f\n", rotation);
-	*/
 }
 
 void LinearAnimation::apply(){
-	//actualPos++;
 	glTranslatef(this->newX,this->newY,this->newZ);
 }
 
-
-CircularAnimation::CircularAnimation(string id, float span, float * center, float startang, float rotang): Animation(id,span,"circular"){
+CircularAnimation::CircularAnimation(string id, float span, float * center, float radius,float startang, float rotang): Animation(id,span,"circular"){
 	this->center = center;
 	this->startang = startang;
 	this->rotang = rotang;
+
+	this->rotationvelocity = rotang / (span*1000);
+	this->resett = true;
+	this->radius = radius;
+
 }
 
-void Animation::apply(){}
-void Animation::update(unsigned long t){}
-	void Animation::reset(){}
+void CircularAnimation::init(unsigned long t){
+	this->stime = t;
+	resett = false;
 
-	void CircularAnimation::apply(){}
-void CircularAnimation::update(unsigned long t){}
-	void CircularAnimation::reset(){}
+}
+
+
+void CircularAnimation::update(unsigned long t){
+
+	if(resett){
+		init(t);
+	}
+	float dt = (t - stime);
+
+	if(dt<=(span*1000))
+		this->rotationangle = rotationvelocity *dt;
+
+}
+
+void CircularAnimation::apply(){
+	glTranslatef(this->center[0] , this->center[1], this->center[2]);
+	glRotatef(rotationangle, 0, 1, 0);
+	glTranslatef(-this->center[0], -this->center[1], -this->center[2]);
+
+
+}
+
+
+
+void Animation::apply(){}
+void Animation::init(unsigned long t){}
+void Animation::update(unsigned long t){}
+void Animation::reset(){}
+void CircularAnimation::reset(){}
