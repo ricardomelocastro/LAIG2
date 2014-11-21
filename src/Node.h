@@ -46,6 +46,8 @@ public:
 
 	string getActiveAnimationID();
 
+	void resetAnimation();
+
 };
 
 #endif

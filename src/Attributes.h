@@ -70,6 +70,8 @@ public:
 
 	void updateAnimationsNodes(unsigned long t);
 
+	void resetAnimations();
+
 	//void setIndex(int newIndex);
 	//int getIndex();
 	//void incIndex();

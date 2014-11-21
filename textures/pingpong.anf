@@ -56,6 +56,7 @@
   <texture id="circulo_4Tex" file="textures/circulo_4Tex.png" texlength_s="1" texlength_t="1" />
   <texture id="circulo_5Tex" file="textures/circulo_5Tex.jpg" texlength_s="1" texlength_t="1" />
   <texture id="tecidoTex" file="textures/tecidoTex.jpg" texlength_s="1" texlength_t="1" />
+  
 
  </textures>
 
@@ -217,13 +218,16 @@
   </node>
   
   <node id="flagshader">
-    <transforms> 		
-	   </transforms>
+    <transforms> 	
+		<transform type="translate" to="0 4 6" />
+		<transform type="rotate" axis="z" angle="-90" />
+		<transform type="scale" factor="3 1 4" /> 	
+   </transforms>
   
 	<appearanceref id="inherit" />
 
 	<primitives>   
-		<flag texture="feup.jpg"/>
+		<flag texture="textures/flag.jpg"/>
 	 </primitives>
 	   
 	  <descendants>

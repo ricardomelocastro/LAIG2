@@ -78,3 +78,9 @@ string Node::getActiveAnimationID(){
 
 	return this->animations[this->animationIt];
 }
+
+
+void Node::resetAnimation(){
+
+	this->animationIt = 0;
+}

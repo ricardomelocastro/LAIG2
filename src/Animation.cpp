@@ -166,9 +166,7 @@ void CircularAnimation::applyCompleted(){
 void Animation::apply(){}
 void Animation::init(unsigned long t){}
 void Animation::update(unsigned long t){}
-void Animation::reset(){}
-void CircularAnimation::reset(){}
-
+void Animation::defaultValues(){}
 
 bool LinearAnimation::hasEnded(){
 
@@ -181,4 +179,28 @@ bool CircularAnimation::hasEnded(){
 
 bool Animation::hasEnded(){
 	return 0;
+}
+
+void LinearAnimation::defaultValues(){
+	this->reset = true;
+	this->ended = false;
+
+
+	this->controlX = controlX;
+	this->controlY = controlY;
+	this->controlZ = controlZ;
+	this->distance = 0;
+	for(unsigned int i = 1; i < controlX.size(); i++) {
+		this->distance += sqrtf(pow(controlX[i]-controlX[i-1], 2) + pow(controlY[i]-controlY[i-1], 2) + pow(controlZ[i]-controlZ[i-1], 2));
+	}
+	this->actualPos = 0;
+	
+
+}
+
+
+void CircularAnimation::defaultValues(){
+
+	this->resett = true;
+	this->ended = false;
 }

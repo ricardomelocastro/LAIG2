@@ -137,14 +137,14 @@ public:
 class Flag: public Primitive, CGFshader{
 public:
 	string textureMap;
-	float wind;
+	static int wind;
 	float parts;
 	Flag(string text);
 	Flag(){}
 	void bind();
 	void update(unsigned long t,int wind);
-	void draw();
-	void draw(Texture *t){}
+	void Draw(Texture * texture, Appearance * appearance);
+	void Draw(Texture *t){}
 
 private:
 	CGFtexture * baseTexture;

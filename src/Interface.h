@@ -6,9 +6,12 @@
 #include "Light.h"
 #include <iostream>
 class Interface: public CGFinterface {
+	private:
+		int wind;
 	public:
 		Interface();
 		virtual void initGUI();
+		void processGUI(GLUI_Control *ctrl);
 		
 
 };

@@ -178,3 +178,8 @@ void Scene::chooseCamera(){
 Attributes * Scene::getAttributes(){
 	return this->attributes;
 }
+
+void Scene::resetanimations(){
+
+	attributes->resetAnimations();
+}

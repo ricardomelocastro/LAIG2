@@ -368,6 +368,29 @@ void Attributes::updateAnimationsNodes(unsigned long t){
 
 }
 
+void Attributes::resetAnimations(){
+	map<string, Node *>::iterator it;
+
+    for (it = graph.begin(); it != graph.end(); ++it) {
+
+		if((*it).second->hasAnimation()){
+
+			(*it).second->resetAnimation();
+		}
+
+	}
+
+	map<string, Animation *>::iterator ite;
+
+    for (ite = animations.begin(); ite != animations.end(); ++ite) {
+
+		(*ite).second->defaultValues();
+
+	}
+
+
+}
+
 
 /*
 void Attributes::setIndex(int newIndex){

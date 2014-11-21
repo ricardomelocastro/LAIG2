@@ -553,7 +553,7 @@ void Vehicle::back(Texture * texture, Appearance * appearance){
 }
 
 
-
+int Flag::wind = 0;
 
 Flag::Flag(string text){
 	parts=100;
@@ -591,7 +591,7 @@ void Flag::bind(){
 
 }
 
-void Flag::draw(){
+void Flag::Draw(Texture * texture, Appearance * appearance){
 
 	bind();
 

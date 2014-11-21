@@ -23,12 +23,12 @@ public:
 	Animation(string id, float span, string type);
 	virtual void apply();
 	virtual void update(unsigned long t);
-	virtual void reset();
 	virtual void init(unsigned long t);
 	string getId();
 
 	virtual void applyCompleted();
 	virtual bool hasEnded();
+	virtual void defaultValues();
 };
 
 
@@ -56,6 +56,7 @@ public:
 	
 	void applyCompleted();
 	bool hasEnded();
+	void defaultValues();
 
 };
 
@@ -81,9 +82,9 @@ public:
 	void apply();
 	void update(unsigned long t);
 	void init(unsigned long t);
-	void reset();
 
 	void applyCompleted();
+	void defaultValues();
 
 };
 

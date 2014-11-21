@@ -38,6 +38,7 @@ public:
 	Attributes * getAttributes();
 	int cameraId;
 	int drawingId;
+	void resetanimations();
 
 private:
 	Attributes * attributes;
