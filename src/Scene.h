@@ -1,6 +1,7 @@
 #ifndef SCENE_H
 #define SCENE_H
 
+#include "Primitive.h"
 #include "CGFscene.h"
 #include "Attributes.h"
 
@@ -8,7 +9,6 @@
 #include "CGFapplication.h"
 #include "Light.h"
 
-#include "Primitive.h"
 #include "Animation.h"
 
 #include <math.h>

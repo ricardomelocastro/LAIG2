@@ -1219,7 +1219,6 @@ Parser::Parser(const char* filename, Attributes * att)
 				}
 			}
 
-			printf("passou aqui");
 
 			if(!primitivesElement && !descendantsElement){
 				printf("ERROR! Primitives and descendants block not found\n\n");
@@ -1465,17 +1464,18 @@ Parser::Parser(const char* filename, Attributes * att)
 					}
 
 					//Flag
-					else if((strcmp(typeprims,"plane") == 0)){
+					else if((strcmp(typeprims,"flag") == 0)){
 
 						char * text = NULL;
 						text = (char *) primitiveElement->Attribute("texture");
 
+						/*
 						if ( !att->verifyTextureref(text) ) {
 							printf("Texture with textureref %s not found\n", text);
 							system("pause");
 							exit(1);
 						}
-
+						*/
 						Primitive * p = new Flag(text);
 						node->addPrimitive(p);
 						printf("Flag primitive added\n");

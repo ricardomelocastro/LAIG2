@@ -1,11 +1,16 @@
 #ifndef PRIMITIVE_H
 #define PRIMITIVE_H
 
+#include <GL/glew.h>
+
 #include <string>
 #include <iostream>
 #include <CGFobject.h>
+#include <CGFshader.h>
 #include "Texture.h"
 #include "Appearance.h"
+
+
 
 
 using namespace std;
@@ -80,6 +85,22 @@ class Torus: public Primitive
 
 
 
+
+
+//Patch
+class Patch : public Primitive {
+public:
+	Patch(int order, int partsU, int partsV, float * control, string compute);
+	Patch(int order, int partsU, int partsV, string compute);
+	void draw(Texture * texture, Appearance * appearance);
+
+private:	
+	int order, partsU, partsV;
+	string compute;
+	float * control; // num pontos = (ordem+1)^2
+};
+
+
 //Plane
 class Plane : public Primitive {
 public:
@@ -99,20 +120,6 @@ private:
     int vorder;
 };
 
-//Patch
-class Patch : public Primitive {
-public:
-	Patch(int order, int partsU, int partsV, float * control, string compute);
-	Patch(int order, int partsU, int partsV, string compute);
-	void draw(Texture * texture, Appearance * appearance);
-
-private:	
-	int order, partsU, partsV;
-	string compute;
-	float * control; // num pontos = (ordem+1)^2
-};
-
-
 //Vehicle
 class Vehicle : public Primitive {
 	float * control;
@@ -127,11 +134,44 @@ public:
 	void back(Texture * texture, Appearance * appearance);
 };
 
-class Flag : public Primitive {
-	string textureref;
+class Flag: public Primitive, CGFshader{
 public:
-	Flag(string texture){}
+	string textureMap;
+	float wind;
+	float parts;
+	Flag(string text);
+	Flag(){}
+	void bind();
+	void update(unsigned long t,int wind);
+	void draw();
+	void draw(Texture *t){}
+
+private:
+	CGFtexture * baseTexture;
+
+	GLint baseImageLoc,windLoc;
+	
+	float elapsedTime, Timer,startTime;
+
+	bool first;
+
 	
 };
+
+/*
+#include "../../FlagShader.h"
+#include "Plane.h"
+
+class Flag: public Plane
+{
+private:
+	CGFtexture * texture;
+public:
+	static FlagShader * shader;
+	Flag(std::string texture);
+	void draw(Texture * notused);
+};
+
+*/
 
 #endif

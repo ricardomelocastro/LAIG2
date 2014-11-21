@@ -166,6 +166,7 @@
     <appearanceref id="pingpongApp" />
 
     <descendants>
+	<noderef id="flagshader" />
 	  <noderef id="nave" />
       <noderef id="mesa" /> 
       <noderef id="bola" />
@@ -214,6 +215,20 @@
     </primitives>
 	
   </node>
+  
+  <node id="flagshader">
+    <transforms> 		
+	   </transforms>
+  
+	<appearanceref id="inherit" />
+
+	<primitives>   
+		<flag texture="feup.jpg"/>
+	 </primitives>
+	   
+	  <descendants>
+	  </descendants>
+   </node>
   
   <node id="frontal">
     <transforms>

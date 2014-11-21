@@ -5,9 +5,8 @@
 
 #include <iostream>
 #include <exception>
-
-#include "CGFapplication.h"
 #include "Scene.h"
+#include "CGFapplication.h"
 #include "Interface.h"
 
 using std::cout;

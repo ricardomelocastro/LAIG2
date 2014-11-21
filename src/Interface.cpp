@@ -1,8 +1,5 @@
 #include "Interface.h"
 
-#include "Light.h"
-#include "Scene.h"
-#include <iostream>
 
 Interface::Interface()
 {
@@ -32,9 +29,7 @@ void Interface::initGUI()
 		++i;
 	}
 
-
 	addColumn();
-
 
 	//Cameras
 	GLUI_Panel * panelCameras = addPanel("Cameras: ", 1);
@@ -51,4 +46,6 @@ void Interface::initGUI()
 	}
 	
 	addColumn();
+
+
 }

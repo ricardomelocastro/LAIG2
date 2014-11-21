@@ -147,15 +147,8 @@ void CircularAnimation::apply(){
 void Animation::applyCompleted(){}
 
 void LinearAnimation::applyCompleted(){
-	float totalX = 0;
-	//float totalY = 0;
-	float totalZ = 0;
-
-	for(unsigned int i = 0; i < this->controlX.size(); ++i){
-		totalX += controlX[i];
-		//totalY += controlY[i];
-		totalZ += controlZ[i];
-	}
+	float totalX = controlX[controlX.size()-1];
+	float totalZ = controlZ[controlZ.size()-1];
 
 	glTranslatef(totalX,0,totalZ);
 

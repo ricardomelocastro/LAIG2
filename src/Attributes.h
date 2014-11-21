@@ -1,10 +1,10 @@
 #ifndef _ATTRIBUTES_H_
 #define _ATTRIBUTES_H_
 
+#include "Node.h"
 #include "Globals.h"
 #include "Camera.h"
 #include "Light.h"
-#include "Node.h"
 #include "Appearance.h"
 #include "Texture.h"
 #include "Animation.h"

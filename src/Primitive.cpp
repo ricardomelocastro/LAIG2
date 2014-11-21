@@ -314,6 +314,9 @@ Plane::Plane(int parts){
 	this->vorder= 2; //ordem
 }
 
+
+
+
 void Plane::draw(Texture * texture, Appearance * appearance){
 
 	appearance->apply();
@@ -372,6 +375,8 @@ Patch::Patch(int order, int partsU, int partsV, float * controlPts, string compu
 	this->partsV = partsV;
 	this->compute = compute;
 }
+
+
 
 void Patch::draw(Texture * texture, Appearance * appearance){
 
@@ -545,4 +550,90 @@ void Vehicle::back(Texture * texture, Appearance * appearance){
 
 	backfront->Draw(texture, appearance);
 	glPopMatrix();
+}
+
+
+
+
+Flag::Flag(string text){
+	parts=100;
+	elapsedTime=0;
+	wind = 0;
+
+	init("flag.vert", "flag.frag");
+
+	CGFshader::bind();
+
+	baseTexture=new CGFtexture(text);
+
+	Timer = glGetUniformLocation(id(), "timer");
+	windLoc = glGetUniformLocation(id(), "windV");
+
+	baseImageLoc = glGetUniformLocation(id(), "baseImage");
+
+	glUniform1i(baseImageLoc, 0);		
+
+}
+
+void Flag::bind(){
+	CGFshader::bind();
+
+	// update uniforms
+	glUniform1f(Timer, elapsedTime);
+	glUniform1f(windLoc, wind);
+
+
+	// make sure the correct texture unit is active
+	glActiveTexture(GL_TEXTURE0);
+
+	// apply/activate the texture you want, so that it is bound to GL_TEXTURE0
+	baseTexture->apply();
+
+}
+
+void Flag::draw(){
+
+	bind();
+
+	float controlPoints[4][3] =
+	{ { 0.5, 0, -0.5 }, { -0.5, 0, -0.5 },
+	{ 0.5, 0, 0.5 }, {- 0.5, 0, 0.5 }
+	};
+	float controlPointsNorm[4][3] =
+	{ { 0, 1, 0 }, { 0, 1, 0 },
+	{ 0, 1, 0 }, { 0, 1, 0 }
+	};
+	float controlPointsText[4][2] =
+	{ { 1, 0 }, { 0, 0 },
+	{ 1, 1 }, { 0, 1 }
+	};
+
+	glMap2f(GL_MAP2_VERTEX_3, 0, 1, 6, 2, 0, 1, 3, 2, &controlPoints[0][0]);
+	glMap2f(GL_MAP2_NORMAL, 0, 1, 6, 2, 0, 1, 3, 2, &controlPointsNorm[0][0]);
+	glMap2f(GL_MAP2_TEXTURE_COORD_2, 0, 1, 2, 2, 0, 1, 4, 2, &controlPointsText[0][0]);
+
+	glEnable(GL_MAP2_VERTEX_3);
+	glEnable(GL_MAP2_NORMAL);
+	glEnable(GL_MAP2_TEXTURE_COORD_2);
+	glMapGrid2f(parts, 0, 1, parts, 0, 1);
+	glEvalMesh2(GL_FILL, 0, parts, 0, parts);
+
+	CGFshader::unbind();
+
+}
+
+void Flag::update(unsigned long t,int wind)
+{
+	if(elapsedTime==0){
+		startTime = t;
+		elapsedTime = startTime/1000.0;
+	}
+	else
+	{
+		elapsedTime = (t-startTime)/1000.0;
+	}
+
+
+	this->wind =(float) wind;
+
 }
